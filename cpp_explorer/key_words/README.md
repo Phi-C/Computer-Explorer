@@ -38,4 +38,4 @@ int main(void)
 
 在`Computer-Explorer/cpp_explorer/key_words/test_volatile_ex2.cpp`里, 如果`flag`不使用`volatile`修饰, 在开启编译优化后可以看到非预期行为.但是`Computer-Explorer/cpp_explorer/key_words/test_volatile_ex1.cpp`里通过使用条件变量和互斥锁来避免忙等待(busy waiting)后, `test_volatile_ex2.cpp`里的现象并未出现。这是因为锁本身就可以确保变量的可见性: 当一个线程释放锁时，它会将所有修改的变量刷新到内存中;当另外一个线程获得锁时, 它会从主内存中重新加载变量的值。因此: 如果已经使用锁来保护某个变量的访问, 那么该变量的可见性已经由锁保证，此时无需再使用`volatile`。
 
-关于编译器优化, 可以参考[Options That Control Optimization](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html)。这里只提一个点: -O3是一种比较激进的优化，它不保证在任何情况都等小，可能会出现改变程序行为的情况。在正规商业软件开发中一般不会使用-O3,而是使用-O2加上一些-f选项。
+关于编译器优化, 可以参考[Options That Control Optimization](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html)。这里只提一个点: -O3是一种比较激进的优化，它不保证在任何情况都等效，可能会出现改变程序行为的情况。在正规商业软件开发中一般不会使用-O3,而是使用-O2加上一些-f选项。
