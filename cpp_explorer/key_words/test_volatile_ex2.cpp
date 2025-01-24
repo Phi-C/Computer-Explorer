@@ -4,16 +4,16 @@
 #include <pthread.h>
 #include <stdio.h>
 
-// volatile int flag = 0;
-int flag = 0;
+// volatile int g_flag = 0;
+int g_flag = 0;
 
 void* worker_thread(void* arg) {
-    printf("Worker thread started. Waiting for flag to be set...\n");
+    printf("Worker thread started. Waiting for g_flag to be set...\n");
 
-    while (flag == 0) {
+    while (g_flag == 0) {
     }
 
-    printf("Worker thread detected flag change. Exiting...\n");
+    printf("Worker thread detected g_flag change. Exiting...\n");
     return NULL;
 }
 
@@ -32,8 +32,8 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    flag = user_input;
-    printf("Main thread set the flag to %d.\n", flag);
+    g_flag = user_input;
+    printf("Main thread set the g_flag to %d.\n", g_flag);
 
     pthread_join(tid, NULL);
     printf("Main thread exiting.\n");
